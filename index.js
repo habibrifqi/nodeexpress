@@ -1,28 +1,23 @@
 const express = require("express");
+
+const nodemon = require("nodemon");
 const app = express();
+const userRouter = require("./users");
+
 const port = 3000;
 
 app.get("/", (req, res) => {
+    // console.log("sad")
+    // res.status(403).end()
   res.send("Home");
 });
 
 app.get("/about", (req, res) => {
   res.send("Hello About  !");
 });
-//users
-app.get("/users", (req, res) => {
-  res.send("Get User  !");
-});
-app.post("/users", (req, res) => {
-  response.send("Post User");
-});
-app.put("/users", (req, res) => {
-  response.send("put User");
-});
-app.delete("/users", (req, res) => {
-  response.send("delete User");
-});
+
+app.use(userRouter)
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`oke ${port}`);
 });
