@@ -13,18 +13,27 @@ let myLogger = function (req, res, next) {
   req.time = new Date()
   next()
 }
-
+// middleware
 app.use(myLogger);
 
+//view engine 
+app.set('view engine', 'ejs');
+
+//untuk memangil/membuat folder statis
+app.use('/assets',express.static('public'))
 
 app.get("/", (req, res) => {
+  const emboh ={
+    nama :"habib",
+    date: req.time.toString()
+  }
     // console.log("sad")
     // res.status(403).end()
-  res.send(`Home ${req.time.toString()}`);
+  res.render(`pages/index`,{emboh : emboh});
 });
 
 app.get("/about", (req, res) => {
-  res.send("Hello About  !");
+  res.render(`pages/about`);
 });
 
 app.use(userRouter)

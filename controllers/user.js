@@ -5,19 +5,20 @@ let users = [
 
 module.exports = {
     index : (req, res) => {
-        if (users.length > 0) {
-          res.json({
-            status: true,
-            data: users,
-            method: req.method,
-            url: req.url,
-          });
-        } else {
-          res.json({
-            status: false,
-            message: "data ksoong"
-          });
-        }
+        res.render('pages/user/index', {users :users})
+        // if (users.length > 0) {
+        //   res.json({
+        //     status: true,
+        //     data: users,
+        //     method: req.method,
+        //     url: req.url,
+        //   });
+        // } else {
+        //   res.json({
+        //     status: false,
+        //     message: "data ksoong"
+        //   });
+        // }
       },
     store : (req, res) => {
         users.push(req.body);
