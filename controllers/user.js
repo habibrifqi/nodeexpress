@@ -7,7 +7,8 @@ let users = [
 
 module.exports = {
   index: (req, res) => {
-    res.render("pages/user/index", { users: users });
+    res.json(users);
+    // res.render("pages/user/index", { users: users });
     // if (users.length > 0) {
     //   res.json({
     //     status: true,
@@ -32,6 +33,14 @@ module.exports = {
       pass : req.body.password
     });
     res.redirect('/users');
+  },
+  show:(req,res)=>{
+    const id  = req.params.id
+    const data = users.filter(user =>{
+      return user.id == id;
+      })
+    res.render('pages/user/show', {user:data});
+
   },
   update: (req, res) => {
     const id = req.params.id;
