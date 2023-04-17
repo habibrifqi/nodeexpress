@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 let users = [
   { id: 1, name: "habib", pass: 111 },
   { id: 2, name: "rifqi", pass: 222 },
@@ -24,14 +26,12 @@ module.exports = {
     res.render("pages/user/create");
   },
   store: (req, res) => {
-    users.push(req.body);
-    res.send({
-      status: true,
-      message: "data user berhasil di simpan",
-      data: users,
-      method: req.method,
-      url: req.url,
+    users.push({
+      id: uuidv4(),
+      name : req.body.name,
+      pass : req.body.password
     });
+    res.redirect('/users');
   },
   update: (req, res) => {
     const id = req.params.id;
