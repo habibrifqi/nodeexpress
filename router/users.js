@@ -6,7 +6,9 @@ const usercontroller = require("../controllers/user");
 
 Router.route("/users").get(usercontroller.index).post(usercontroller.store);
 
-Router.get('/users/create', usercontroller.create)
+Router.get("/users/create", usercontroller.create);
+
+Router.get("/users/:id", usercontroller.show);
 
 Router.put("/users/:id", usercontroller.update);
 

@@ -7,8 +7,8 @@ let users = [
 
 module.exports = {
   index: (req, res) => {
-    res.json(users);
-    // res.render("pages/user/index", { users: users });
+    // res.json(users);
+    res.render("pages/user/index", { users: users });
     // if (users.length > 0) {
     //   res.json({
     //     status: true,
