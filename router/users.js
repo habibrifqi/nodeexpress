@@ -10,7 +10,7 @@ Router.get("/users/create", usercontroller.create);
 
 Router.get("/users/:id", usercontroller.show);
 
-Router.put("/users/:id", usercontroller.update);
+Router.post("/usersupdate/:id", usercontroller.update);
 
 Router.delete("/users/:userId", usercontroller.delete);
 

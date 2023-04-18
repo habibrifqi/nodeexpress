@@ -44,16 +44,17 @@ module.exports = {
   },
   update: (req, res) => {
     const id = req.params.id;
+    console.log(req.body);
     users.filter((user) => {
       if (user.id == id) {
         user.id = id;
         user.name = req.body.name;
-        user.pass = req.body.pass;
+        user.pass = req.body.password;
 
         return user;
       }
     });
-    res.json(users);
+    res.redirect('/users');
   },
   delete: (req, res) => {
     let id = req.params.userId;
@@ -62,3 +63,41 @@ module.exports = {
     res.send(users);
   },
 };
+
+
+[
+  {
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+]

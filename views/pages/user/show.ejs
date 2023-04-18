@@ -13,7 +13,7 @@
     <%- include('../components/navbar') %>
     <div class="container">
         <h1>Edit data SHU </h1>
-        <form action="/users" method="POST">
+        <form  method="POST"action="/usersupdate/<%= user[0].id %>">
           <!-- <div class="mb-3">
             <label for="Id" class="form-label">Id</label>
             <input type="number" class="form-control" id="Id" aria-describedby="Id" name="id">
@@ -35,5 +35,19 @@
     <%- include('../components/footer') %>
 </body>
 <script>
+  document.querySelector('form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+  const url = form.action;
+  const options = {
+    method: 'PUT',
+    body: formData,
+  };
+  // fetch(url, options)
+  //   .then(response => response.json())
+  //   .then(data => console.log(data))
+  //   .catch(error => console.error(error));
+});
 </script>
 </html>
