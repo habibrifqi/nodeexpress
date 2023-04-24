@@ -1,17 +1,26 @@
-const { v4: uuidv4 } = require('uuid');
-const mongoose = require('mongoose');
+const { v4: uuidv4 } = require("uuid");
+const mongoose = require("mongoose");
 // const Users = require('../models/user');
-const User = require('../models/user');
-let users = [
-  { id: 1, name: "habib", pass: 111 },
-  { id: 2, name: "rifqi", pass: 222 },
-];
-
+const User = require("../models/user");
+// let users = [
+//   { id: 1, name: "habib", pass: 111 },
+//   { id: 2, name: "rifqi", pass: 222 },
+// ];
 
 module.exports = {
   index: (req, res) => {
+    User.find({}).exec()
+    .then(users => {
+      console.log('Data pengguna:', users);
+      const datauser = users;
+      res.render("pages/user/index", { users: datauser });
+    })
+    .catch(err => {
+      console.log(err);
+    });  
+
     // res.json(users);
-    res.render("pages/user/index", { users: users });
+    
     // if (users.length > 0) {
     //   res.json({
     //     status: true,
@@ -31,46 +40,43 @@ module.exports = {
   },
   store: (req, res) => {
     const user = new User({
-      name :req.body.name,
-      password :req.body.password
+      name: req.body.name,
+      password: req.body.password,
     });
 
-    user.save()
-    .then(savedModel => {
-      // Menangani jika penyimpanan berhasil
-      // console.log(data);
-      // res.redirect('/users');
-      console.log('Model berhasil disimpan:', savedModel);
-      res.redirect('/users');
-    })
-    .catch(error => {
-      // Menangani jika terjadi kesalahan
-      // if (error) return handleError(error);
-      //  handleError(error);
-      console.error(error.message);
-    });
+    //cara pertama
+    // user.save()
+    // .then(savedModel => {
+    //   // Menangani jika penyimpanan berhasil
+    //   console.log('Model berhasil disimpan:', savedModel);
+    //   res.redirect('/users');
+    // })
+    // .catch(error => {
+    //   console.error(error.message);
+    // });
 
-    // user.save(function(err, data) {
-    //   if (err) return handleError(err);
-    //     console.log(data);
-    //   // saved!
-   
-    // }); 
+    //cara kedua
+    User.create(user)
+      .then((user) => {
+        console.log("Data berhasil disimpan: " + user);
+        res.redirect("/users");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // users.push({
     //   id: uuidv4(),
     //   name : req.body.name,
     //   pass : req.body.password
     // });
-    
   },
-  show:(req,res)=>{
-    const id  = req.params.id
-    const data = users.filter(user =>{
+  show: (req, res) => {
+    const id = req.params.id;
+    const data = users.filter((user) => {
       return user.id == id;
-      })
-    res.render('pages/user/show', {user:data});
-
+    });
+    res.render("pages/user/show", { user: data });
   },
   update: (req, res) => {
     const id = req.params.id;
@@ -84,7 +90,7 @@ module.exports = {
         return user;
       }
     });
-    res.redirect('/users');
+    res.redirect("/users");
   },
   delete: (req, res) => {
     let id = req.params.userId;
@@ -94,40 +100,39 @@ module.exports = {
   },
 };
 
-
 [
   {
-    "featureType": "administrative",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "stylers": [
+    featureType: "poi",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "labels.icon",
-    "stylers": [
+    featureType: "road",
+    elementType: "labels.icon",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "transit",
-    "stylers": [
+    featureType: "transit",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
-  }
-]
+        visibility: "off",
+      },
+    ],
+  },
+];
