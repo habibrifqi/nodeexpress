@@ -2,9 +2,13 @@ const express = require("express");
 
 const nodemon = require("nodemon");
 
+const mongoose = require('mongoose');
+
 const userRouter = require("./router/users");
 const app = express();
 const port = 3000;
+
+
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) 
@@ -13,6 +17,17 @@ let myLogger = function (req, res, next) {
   req.time = new Date()
   next()
 }
+
+mongoose.connect('mongodb://localhost/test');
+
+// main().catch(err => console.log(err));
+
+// async function main() {
+//   await mongoose.connect('mongodb://localhost/test');
+
+//   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+// }
+
 // middleware
 app.use(myLogger);
 
@@ -24,7 +39,7 @@ app.use('/assets',express.static('public'))
 
 app.get("/", (req, res) => {
   const emboh ={
-    nama :"habib",
+    nama :"",
     date: req.time.toString()
   }
     // console.log("sad")
